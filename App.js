@@ -1,67 +1,94 @@
-import React, { useState } from 'react';
-import { Image, StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { ImageBackground, Image, StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import logo from './assets/R2.png';
+import axios from 'axios';
 
-export default function App() {
-  const [email, employee_email] = useState('');
-  function verifyEmail() {
-    return fetch(`https://localhost:5001/api/employee/${email}`)
-      .then((response) => response.json())
-      .then((json) => {
-        var getStatus = response.status;
-        console.log(response.status);
-        console.log(typeof getStatus);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+var myBackground = require('./assets/background.png');
+
+export default class App extends React.Component {
+
+  state = {
+    email: "",
+    onCall: true
+
   }
 
+  verifyEmail = () => {
+    this.setState({ onCall: true });
+    axios.get("https://localhost:5001/api/employee/" + this.state.email)
+      .then(function (response) {
+        const statusCode = response.status;
+        if (statusCode == 200) {
+          //go to home screen
+        }
+      })
+      .catch(function (error) {
+        // handle error
+        console.log("This " + this.state.email + " is incorrect.");
+      })
+      .then(function () {
+        // always executed
+      });
+  }
+  render() {
+    return (
+      <View style={styles.container} >
+        <ImageBackground source={myBackground} style={styles.image}>
+          <View style={styles.viewStyle}>
+            <Image source={logo} style={styles.logo} />
+            <Text style={styles.login}>Employee Login</Text>
+            <TextInput
+              style={styles.input}
+              placeholder='e.g. anna@gmail.com'
+              onChangeText={(email) => this.setState({ email })}
+            />
+            <TouchableOpacity
+              onPress={this.verifyEmail}
+              style={styles.button}>
+              <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
 
-
-  return (
-    <View style={styles.container}>
-      <Image source={logo} style={styles.logo} />
-      <Text>Employee Login:</Text>
-      <TextInput
-        style={styles.input}
-        placeholder='e.g. anna@gmail.com'
-      // onChangeText={(val) => employee_email(val)}
-      />
-
-      <Text>{email}</Text>
-
-      <TouchableOpacity
-        onPress={verifyEmail}
-        style={styles.button}>
-        <Text style={styles.buttonText}>Submit</Text>
-      </TouchableOpacity>
-    </View>
-  );
+          </View>
+        </ImageBackground>
+      </View >
+    )
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    marginTop: Platform.OS === "android" ? 24 : 0
+  },
+  viewStyle: {
+    flex: 1,
+    marginTop: 0,
     alignItems: 'center',
     // justifyContent: 'center',
   },
+  login: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
+  },
   input: {
-    borderWidth: 1,
-    borderColor: '#777',
+    borderWidth: 2,
+    borderColor: '#b71c1c',
     padding: 8,
     margin: 10,
     width: 200,
+    marginBottom: 30,
+    color: 'white'
   },
   logo: {
     width: 305,
     height: 159,
-    marginBottom: 20,
-    resizeMode: "contain"
+    resizeMode: "contain",
+    marginBottom: 30,
+
   },
   button: {
-    backgroundColor: "blue",
+    backgroundColor: "#01579b",
     paddingLeft: 15,
     paddingRight: 15,
     paddingTop: 7,
@@ -71,5 +98,10 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     color: '#fff',
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
   },
 });
