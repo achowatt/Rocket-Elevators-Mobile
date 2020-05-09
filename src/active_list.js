@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ImageBackground, FlatList, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 
-var myBackground = require('../assets/yellow.png');
+var myBackground = require('../assets/blue.png');
 
 
 const ActiveList = (props) => {
@@ -81,8 +81,7 @@ const styles = {
     button: {
         alignSelf: "stretch",
         backgroundColor: "rgba(10, 40, 71, 0.30)",
-        paddingTop: 15,
-        paddingBottom: 15,
+        paddingVertical: 20,
     },
     buttonText: {
         fontSize: 20,

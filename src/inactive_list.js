@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ImageBackground, FlatList, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 
-var myBackground = require('../assets/blue.png');
+var myBackground = require('../assets/orange.png');
 
 
 const InactiveList = (props) => {
@@ -41,17 +41,17 @@ const InactiveList = (props) => {
                             return <TouchableOpacity style={styles.elevatorList} onPress={() => StatusScreen(item.id, item.status)}><Text style={styles.textStyle}> Elevator ID {item.id} - Status: {item.status}</Text></TouchableOpacity>;
                         }}
                     />
-
+                </View>
+                <View>
                     <TouchableOpacity
                         activeOpacity={.7}
-                        style={styles.button}
+                        style={styles.logout}
                         onPress={() => props.navigation.replace('Login')}>
                         <Text style={styles.buttonText}>Log Out</Text>
                     </TouchableOpacity>
-
                 </View>
             </ImageBackground>
-        </View>
+        </View >
     );
 
 };
@@ -78,7 +78,7 @@ const styles = {
         alignItems: 'center',
         // justifyContent: 'center',
     },
-    button: {
+    logout: {
         alignSelf: "stretch",
         backgroundColor: "rgba(10, 40, 71, 0.30)",
         paddingTop: 15,
@@ -92,7 +92,7 @@ const styles = {
     elevatorList: {
         paddingLeft: 20,
         paddingRight: 20,
-        backgroundColor: "rgba(33, 137, 242, 0.45)",
+        backgroundColor: "rgba(238, 128, 17, 0.74)",
         marginTop: 5,
         borderRadius: 10,
     }

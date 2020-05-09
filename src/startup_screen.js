@@ -6,9 +6,7 @@ var myBackground = require('../assets/background.png');
 
 const Startup = (props) => {
 
-
     const [email, getEmail] = useState('');
-
 
     const verifyEmail = () => {
         let employee_email = email;
@@ -34,11 +32,12 @@ const Startup = (props) => {
             <ImageBackground source={myBackground} style={styles.image}>
                 <View style={styles.viewStyle}>
                     <Image source={logo} style={styles.logo} />
-                    <Text style={styles.login}>Employee Login</Text>
+                    <Text style={styles.login}>Employee Email</Text>
                     <TextInput
                         style={styles.input}
                         autoCapitalize="none"
-                        placeholder='e.g. anna@gmail.com(opens in new tab)'
+                        placeholder='e.g. test@test.ca'
+                        placeholderTextColor="#dddddd"
                         required
                         onChangeText={(e) => getEmail(e.target.value)}
                         onChangeText={(value) => {
@@ -76,11 +75,14 @@ const styles = {
     input: {
         borderWidth: 2,
         borderColor: '#b71c1c',
-        padding: 8,
+        width: 500,
+        paddingHorizontal: 5,
+        paddingVertical: 10,
+        fontSize: 20,
         margin: 10,
         width: 200,
         marginBottom: 30,
-        color: 'white'
+        color: 'white',
     },
     logo: {
         width: 305,
@@ -89,9 +91,10 @@ const styles = {
         marginBottom: 30,
     },
     button: {
+        borderWidth: 2,
+        borderColor: "#dddddd",
         backgroundColor: "#01579b",
-        paddingLeft: 15,
-        paddingRight: 15,
+        paddingHorizontal: 30,
         paddingTop: 7,
         paddingBottom: 7,
         borderRadius: 100,
